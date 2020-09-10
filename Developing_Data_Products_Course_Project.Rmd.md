@@ -28,7 +28,7 @@ Outputs include two plots and comparison of theoretical and sample mean and vari
 
 Application Interface
 ========================================================
-![App Interface](AppInterface.PNG)
+![App Interface](https://github.com/kikosikera/Shiny_Application_and_Reproducible_Pitch/blob/master/AppInterface.png)
 
 Simplified example code of the sample mean calculation in the server
 ========================================================
