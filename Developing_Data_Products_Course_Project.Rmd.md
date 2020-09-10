@@ -9,7 +9,7 @@ Aim of this presentation
 
 This presentation is created as part of the course project of the *Developing Data Products* course in the data science specialisation. The prject consists of the following two parts:
 
-- Shiny application demonstrating the investigation of exponential distribution <kikosikera.github.io/accomplishments/shinyapps.io/Shiny_Application_and_Reproducible_Pitch/Investigation of Exponential Distribution.html>.
+- Shiny application demonstrating the investigation of exponential distribution <https://kikosikera.github.io/accomplishments/shinyapps.io/Shiny_Application_and_Reproducible_Pitch/Investigation%20of%20Exponential%20Distribution.html>.
 - R presentation that introduces the above application
 
 All related files can be found in my GitHub repository
