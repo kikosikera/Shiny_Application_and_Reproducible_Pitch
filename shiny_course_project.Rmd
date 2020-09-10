@@ -1,0 +1,38 @@
+---
+title: "Course Project: Shiny Application and Reproducible Pitch"
+author: "Cristiano Siqueira"
+date: "September 10, 2020"
+output: ioslides_presentation
+---
+## Overview
+
+- The shiny app calculates and presents the production cost of Ammonia/Urea as the variation of natural gas price. 
+- The app is published at https://kikosikera.github.io/accomplishments/shinyapps.io/Shiny_Application_and_Reproducible_Pitch/Calculation%20of%20Ammonia_Urea%20production%20cost%20as%20the%20change%20of%20natural%20gas%20price.html
+- Source code for ui.R and server.R files are available on the GitHub repo: https://github.com/kikosikera/Shiny_Application_and_Reproducible_Pitch
+
+## Web Application functionality
+
+Ammonia and Urea are made from natural gas. The production cost of ammonia and Urea depends highly on the price of natural gas. This shiny app calculates the production cost of ammonia/Urea as the change of natural gas price.
+
+Users can change the natural gas price by dragging the slierbar input. 
+
+The estimated production costs are shown in figure, and users can select the chemical(Ammonia/Urea) they want by clicking the checkbox.   
+
+## Calculation
+
+The production cost of ammonia/urea include feedstock cost and non-feedstock cost. The feedstock cost is calculated as unit natural gas price multiple the amount of natural gas that is used for producing unit ammonia/urea. 
+
+Producing one tonne of ammonia requires 36 mmbtu natural gas input,Producing one tonne of urea requires 26 mmbtu natural gas input. The shiny app obtains the natural gas price from the sliderbar input.
+
+The non-feedsock cost for ammonia is 26 dollar per tonne, and the non-feedsock cost for urea is 42 dollar per tonne.
+
+## R code for plotting results
+```{r,echo=TRUE,echo=TRUE, fig.height=3.5, fig.width=6}
+x = c(3:16)
+y = 36*x+26
+z = 26*x+42
+plot(x,y,xlab="Natural gas price($/mmbtu)", ylab="Production cost($/tonne)",col="white")
+legend("topleft",legend=c("Ammonia", "Urea"), col=c("red","blue"),lty=1,cex=0.8)
+lines(x,y, col = "red", lwd= 2)
+lines(x,z, col = "blue",lwd=2)
+```
