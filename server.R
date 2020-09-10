@@ -1,67 +1,33 @@
+##Peer-graded Assignment: Course Project: Shiny Application and Reproducible Pitch
+
+###Ammonia, the raw material for producing nitrogen fertilizer, is made from natural gas. The production cost of ammonia depends on the price of natural gas.
+###The production cost of ammonia($/tonne) is estimated as 36*Natural gas price($/mmbtu)+26
+###This shiny app calculates the production cost of ammonia as the change of natural gas price.
+
+
 library(shiny)
-library(ggplot2)
 
 shinyServer(function(input, output) {
-    
-    getExpoMeans <- reactive({
-        set.seed(input$seed)
-        lambda <- input$sliderLambda
-        nosim <- input$sliderNsim
-        n <- input$sliderNmean
-        
-        mns = NULL
-        for (i in 1 : nosim) mns = c(mns, mean(rexp(n,lambda)))
-        mns
-    })
-    
-    sampleMeanCalc <- reactive({
-        mns <- getExpoMeans()
-        mean(mns)
-    })
-    
-    sampleVarCalc <- reactive({
-        mns <- getExpoMeans()
-        var(mns)
-    })
-    
-    output$plot1 <- renderPlot({
-        lambda <- input$sliderLambda
-        nosim <- input$sliderNsim
 
-        # Generate nosim exponentially distributed numbers
-        expseq <- rexp(nosim,lambda)
-        # Plot the distribution of these numbers
-        ggplot(data.frame(expseq),aes(x=expseq)) + 
-            geom_histogram(aes(y=..density..), bins=30, colour="black",fill="white")
-    })
-    
-    output$plot2 <- renderPlot({
-        mns <- getExpoMeans()
-        
-        g <- ggplot(data.frame(mns),aes(x=mns)) +
-            geom_histogram(aes(y=..density..), bins=30, colour="black", fill="white")
-        
-        if(input$showSampleMean){
-            g <- g + geom_vline(aes(xintercept=mean(mns)), color="red", size=1)
-        }
-        g
-    })
-    
-    output$theoMean <- renderText({
-        1/input$sliderLambda
-    })
-
-    output$theoVar <- renderText({
-        lambda <- input$sliderLambda
-        n <- input$sliderNmean
-        (1/lambda)^2/n
-    })
-
-    output$sampleMean <- renderText({
-        sampleMeanCalc()
-    })
-
-    output$sampleVar <- renderText({
-        sampleVarCalc()
-    })
+  output$plot1 <- renderPlot({
+          x = c(3:16)
+          y = 36*x+26
+          plot(x,y,xlab="Natural gas price($/mmbtu)", ylab="Production cost($/tonne)",col="white")
+          legend("topleft",legend=c("Production cost of Ammonia", "Production cost of Urea"), col=c("red","blue"),lty=1)
+          if(input$ammonia){
+                  x = c(3:16)
+                  y = 36*x+26
+                  z = 26*x+42
+                  NG=input$NG_price
+                  lines(x,y, col = "red", lwd= 2)
+                  points(NG, 36*NG+26, col = "red", pch = 16, cex = 2)}
+          if(input$urea){
+                  x = c(3:16)
+                  y = 36*x+26
+                  z = 26*x+42
+                  NG=input$NG_price
+          lines(x,z, col = "blue",lwd=2)
+          points(NG, 26*NG+42, col = "blue", pch = 16, cex = 2)}
+  })
+  output$text <- renderText("Ammonia and Urea are both raw materials for producing nitrogen fertilizer. They are made from natural gas. The production cost of ammonia and Urea depends on the price of natural gas. This shiny app calculates the production cost of ammonia/Urea as the change of natural gas price.")
 })
